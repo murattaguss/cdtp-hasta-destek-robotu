@@ -1,0 +1,300 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1220" width="1800" height="1220" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#FF2D55"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#007AFF"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34C759"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#FF9500"/>
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#AF52DE"/>
+    </marker>
+  </defs>
+
+  <!-- ARKA PLAN -->
+  <rect width="1800" height="1220" fill="#F2F2F7"/>
+
+  <!-- ÜST BAŞLIK BARI -->
+  <rect x="30" y="24" width="1740" height="72" rx="16" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <circle cx="72" cy="60" r="20" fill="#FFEBEF"/>
+  <path d="M72 70 C60 60 61 49 72 55 C83 49 84 60 72 70 Z" fill="#FF2D55"/>
+  <text x="106" y="56" font-size="22" font-weight="800" fill="#1C1C1E">HDRG100 — Robot ve Eldiven Tam Kablolama Şeması (ESP32 30-Pin)</text>
+  <text x="106" y="78" font-size="14" font-weight="500" fill="#6C6C70">Aldığınız malzemelere göre birebir pin eşleşmeleri · Kırmızı: Güç (5V/12V) · Mavi: PWM Motor · Mor: Enkoder · Yeşil: I2C · Turuncu: Sensör/ADC</text>
+
+  <!-- ==================== MERKEZ: ROBOT ESP32 (ESP-32S 30 PIN) ==================== -->
+  <rect x="650" y="130" width="500" height="760" rx="22" fill="#1C1C1E" stroke="#3A3A3C" stroke-width="3" filter="url(#cardShadow)"/>
+  <!-- ESP32 Metal Anten ve Chip -->
+  <rect x="775" y="150" width="250" height="110" rx="10" fill="#2C2C2E" stroke="#636366" stroke-width="2"/>
+  <text x="900" y="198" text-anchor="middle" font-size="20" font-weight="800" fill="#FFFFFF">2. ESP32 (ESP-32S)</text>
+  <text x="900" y="224" text-anchor="middle" font-size="14" font-weight="600" fill="#FF2D55">ROBOT ANA BEYNİ (30-Pin)</text>
+  <text x="900" y="245" text-anchor="middle" font-size="12" fill="#AEAEB2">Wi-Fi AP: "HDRG100-Robot" + ESP-NOW Alıcı</text>
+
+  <!-- ESP32 SOL PİN DİZİLİMİ -->
+  <g font-size="13" font-weight="700" font-family="monospace">
+    <!-- VIN 5V -->
+    <rect x="665" y="290" width="145" height="32" rx="6" fill="#FF2D55"/>
+    <text x="737" y="311" text-anchor="middle" fill="#FFFFFF">VIN (5.0V Giriş)</text>
+    <!-- GND -->
+    <rect x="665" y="334" width="145" height="32" rx="6" fill="#48484A"/>
+    <text x="737" y="355" text-anchor="middle" fill="#FFFFFF">GND (Toprak)</text>
+    <!-- GPIO 34 -->
+    <rect x="665" y="390" width="145" height="32" rx="6" fill="#FF9500"/>
+    <text x="737" y="411" text-anchor="middle" fill="#FFFFFF">GPIO 34/35 (ADC)</text>
+    <!-- GPIO 25 -->
+    <rect x="665" y="460" width="145" height="32" rx="6" fill="#007AFF"/>
+    <text x="737" y="481" text-anchor="middle" fill="#FFFFFF">GPIO 25 (Sol RPWM)</text>
+    <!-- GPIO 26 -->
+    <rect x="665" y="502" width="145" height="32" rx="6" fill="#007AFF"/>
+    <text x="737" y="523" text-anchor="middle" fill="#FFFFFF">GPIO 26 (Sol LPWM)</text>
+    <!-- GPIO 32 -->
+    <rect x="665" y="554" width="145" height="32" rx="6" fill="#AF52DE"/>
+    <text x="737" y="575" text-anchor="middle" fill="#FFFFFF">GPIO 32 (Sol Enc A)</text>
+    <!-- GPIO 33 -->
+    <rect x="665" y="596" width="145" height="32" rx="6" fill="#AF52DE"/>
+    <text x="737" y="617" text-anchor="middle" fill="#FFFFFF">GPIO 33 (Sol Enc B)</text>
+    <!-- GPIO 27 -->
+    <rect x="665" y="670" width="145" height="32" rx="6" fill="#007AFF"/>
+    <text x="737" y="691" text-anchor="middle" fill="#FFFFFF">GPIO 27 (Sağ RPWM)</text>
+    <!-- GPIO 14 -->
+    <rect x="665" y="712" width="145" height="32" rx="6" fill="#007AFF"/>
+    <text x="737" y="733" text-anchor="middle" fill="#FFFFFF">GPIO 14 (Sağ LPWM)</text>
+    <!-- GPIO 18 -->
+    <rect x="665" y="764" width="145" height="32" rx="6" fill="#AF52DE"/>
+    <text x="737" y="785" text-anchor="middle" fill="#FFFFFF">GPIO 18 (Sağ Enc A)</text>
+    <!-- GPIO 19 -->
+    <rect x="665" y="806" width="145" height="32" rx="6" fill="#AF52DE"/>
+    <text x="737" y="827" text-anchor="middle" fill="#FFFFFF">GPIO 19 (Sağ Enc B)</text>
+  </g>
+
+  <!-- ESP32 SAĞ PİN DİZİLİMİ -->
+  <g font-size="13" font-weight="700" font-family="monospace">
+    <!-- 3V3 -->
+    <rect x="990" y="290" width="145" height="32" rx="6" fill="#FF2D55"/>
+    <text x="1062" y="311" text-anchor="middle" fill="#FFFFFF">3V3 (3.3V Çıkış)</text>
+    <!-- GND -->
+    <rect x="990" y="334" width="145" height="32" rx="6" fill="#48484A"/>
+    <text x="1062" y="355" text-anchor="middle" fill="#FFFFFF">GND (Toprak)</text>
+    <!-- GPIO 21 SDA -->
+    <rect x="990" y="395" width="145" height="32" rx="6" fill="#34C759"/>
+    <text x="1062" y="416" text-anchor="middle" fill="#FFFFFF">GPIO 21 (I2C SDA)</text>
+    <!-- GPIO 22 SCL -->
+    <rect x="990" y="437" width="145" height="32" rx="6" fill="#34C759"/>
+    <text x="1062" y="458" text-anchor="middle" fill="#FFFFFF">GPIO 22 (I2C SCL)</text>
+    <!-- GPIO 16 -->
+    <rect x="990" y="530" width="145" height="32" rx="6" fill="#FF9500"/>
+    <text x="1062" y="551" text-anchor="middle" fill="#FFFFFF">GPIO 16 (Sol IR)</text>
+    <!-- GPIO 17 -->
+    <rect x="990" y="572" width="145" height="32" rx="6" fill="#FF9500"/>
+    <text x="1062" y="593" text-anchor="middle" fill="#FFFFFF">GPIO 17 (Orta IR)</text>
+    <!-- GPIO 5 -->
+    <rect x="990" y="614" width="145" height="32" rx="6" fill="#FF9500"/>
+    <text x="1062" y="635" text-anchor="middle" fill="#FFFFFF">GPIO 5  (Sağ IR)</text>
+    <!-- GPIO 4 -->
+    <rect x="990" y="720" width="145" height="32" rx="6" fill="#FF2D55"/>
+    <text x="1062" y="741" text-anchor="middle" fill="#FFFFFF">GPIO 4  (Kutu Sw)</text>
+    <!-- GPIO 15 -->
+    <rect x="990" y="762" width="145" height="32" rx="6" fill="#FF2D55"/>
+    <text x="1062" y="783" text-anchor="middle" fill="#FFFFFF">GPIO 15 (Şarj Sw)</text>
+  </g>
+
+  <!-- USB Soketi (Alt Orta) -->
+  <rect x="850" y="860" width="100" height="30" rx="4" fill="#8E8E93"/>
+  <text x="900" y="880" text-anchor="middle" font-size="12" font-weight="700" fill="#1C1C1E">USB PORT</text>
+
+  <!-- ==================== SOL SÜTUN 1: GÜÇ, BMS, MINI360 VE PİL ÖLÇÜMÜ ==================== -->
+  <rect x="30" y="130" width="520" height="305" rx="18" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <rect x="30" y="130" width="520" height="40" rx="18" fill="#FFEBEF"/>
+  <text x="52" y="156" font-size="16" font-weight="800" fill="#FF2D55">1. GÜÇ KAYNAĞI, MINI360 (5V) VE PİL YÜZDESİ DEVRESİ</text>
+
+  <!-- 3x 18650 + BMS -->
+  <rect x="52" y="185" width="210" height="90" rx="10" fill="#F2F2F7" stroke="#D1D1D6" stroke-width="1.5"/>
+  <text x="157" y="210" text-anchor="middle" font-size="14" font-weight="700" fill="#1C1C1E">3× Orion 18650P Pil</text>
+  <text x="157" y="230" text-anchor="middle" font-size="12" font-weight="600" fill="#FF2D55">+ 3S 10A BMS Kartı</text>
+  <text x="157" y="250" text-anchor="middle" font-size="11.5" fill="#6C6C70">Çıkış: 11.1V – 12.6V (6A Sigorta</text>
+  <text x="157" y="266" text-anchor="middle" font-size="11.5" fill="#6C6C70">+ On/Off Anahtar ile)</text>
+
+  <!-- Mini360 -->
+  <rect x="300" y="185" width="225" height="90" rx="10" fill="#FFF8F0" stroke="#FF9500" stroke-width="1.5"/>
+  <text x="412" y="208" text-anchor="middle" font-size="14" font-weight="700" fill="#1C1C1E">Mini360 Regülatör</text>
+  <text x="412" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#D70015">⚠️ Multimetre ile 5.0V Ayarla!</text>
+  <text x="412" y="248" text-anchor="middle" font-size="11.5" fill="#6C6C70">IN+ / IN- : 12V BMS'ten gelir</text>
+  <text x="412" y="265" text-anchor="middle" font-size="11.5" fill="#6C6C70">OUT+ -> ESP32 VIN | OUT- -> GND</text>
+
+  <!-- 12V -> Mini360 Ok -->
+  <line x1="262" y1="230" x2="296" y2="230" stroke="#FF2D55" stroke-width="3" marker-end="url(#arrowRed)"/>
+
+  <!-- Voltaj Bölücü Kutusu (33k + 10k) -->
+  <rect x="52" y="290" width="473" height="128" rx="10" fill="#FFF9EC" stroke="#FF9500" stroke-width="1.5"/>
+  <text x="70" y="314" font-size="13.5" font-weight="800" fill="#B25000">Pil ve Şarj Girişi Ölçüm Hatları (2× 33kΩ + 10kΩ Bölücü):</text>
+  <text x="70" y="340" font-size="13" font-weight="700" font-family="monospace" fill="#1C1C1E">12V (BMS P+) ──► [ 33kΩ Direnç ] ──┬──► ESP32 GPIO 34 (ADC)</text>
+  <text x="70" y="364" font-size="13" font-weight="700" font-family="monospace" fill="#1C1C1E">                                   └──► [ 10kΩ Direnç ] ──► GND</text>
+  <text x="70" y="392" font-size="12" fill="#6C6C70">• Şarj Pedi (+) ──► 1N5822 ──► BMS P+  |  Şarj Pedi (+) ──► 33k/10k ──► GPIO 35</text>
+  <text x="70" y="409" font-size="12" fill="#6C6C70">• 12V Motor Beslemesi: BMS P+ / P- ──► Her iki BTS7960B'nin B+ ve B- klemenslerine</text>
+
+  <!-- Güç Kabloları ESP32'ye -->
+  <path d="M 525 220 L 605 220 L 605 306 L 660 306" fill="none" stroke="#FF2D55" stroke-width="3" marker-end="url(#arrowRed)"/>
+  <path d="M 525 250 L 585 250 L 585 350 L 660 350" fill="none" stroke="#48484A" stroke-width="3"/>
+  <path d="M 525 340 L 620 340 L 620 406 L 660 406" fill="none" stroke="#FF9500" stroke-width="3" marker-end="url(#arrowOrange)"/>
+
+  <!-- ==================== SOL SÜTUN 2: SOL MOTOR VE BTS7960B ==================== -->
+  <rect x="30" y="455" width="520" height="205" rx="18" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <rect x="30" y="455" width="520" height="38" rx="18" fill="#E5F0FA"/>
+  <text x="52" y="480" font-size="16" font-weight="800" fill="#007AFF">2. SOL MOTOR: 1. BTS7960B + SOL JGB37-520 ENKODERLİ MOTOR</text>
+
+  <text x="52" y="514" font-size="13" font-weight="700" fill="#1C1C1E">1. BTS7960B (40A Sürücü):</text>
+  <text x="52" y="535" font-size="12.5" fill="#3A3A3C">• B+ ve B- Klemens: 12V Pil (BMS)   |   M+ ve M- Klemens: Sol Motor Kırmızı/Beyaz</text>
+  <text x="52" y="555" font-size="12.5" fill="#3A3A3C">• VCC, R_EN ve L_EN pinleri: 3.3V / 5V'a birleştirilir   |   GND: Ortak GND</text>
+  <text x="52" y="578" font-size="13" font-weight="700" fill="#007AFF">• RPWM ──► GPIO 25     |     LPWM ──► GPIO 26</text>
+
+  <text x="52" y="608" font-size="13" font-weight="700" fill="#AF52DE">Sol JGB37-520 Enkoder Kabloları (6 Telli Soket):</text>
+  <text x="52" y="629" font-size="12.5" fill="#3A3A3C">• Enkoder VCC: 3.3V  |  Enkoder GND: GND  |  C1 (Faz A) ──► GPIO 32  |  C2 (Faz B) ──► GPIO 33</text>
+
+  <!-- Sol Motor Kabloları -->
+  <line x1="550" y1="476" x2="660" y2="476" stroke="#007AFF" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <line x1="550" y1="518" x2="660" y2="518" stroke="#007AFF" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <line x1="550" y1="570" x2="660" y2="570" stroke="#AF52DE" stroke-width="3" marker-end="url(#arrowPurple)"/>
+  <line x1="550" y1="612" x2="660" y2="612" stroke="#AF52DE" stroke-width="3" marker-end="url(#arrowPurple)"/>
+
+  <!-- ==================== SOL SÜTUN 3: SAĞ MOTOR VE BTS7960B ==================== -->
+  <rect x="30" y="675" width="520" height="215" rx="18" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <rect x="30" y="675" width="520" height="38" rx="18" fill="#E5F0FA"/>
+  <text x="52" y="700" font-size="16" font-weight="800" fill="#007AFF">3. SAĞ MOTOR: 2. BTS7960B + SAĞ JGB37-520 ENKODERLİ MOTOR</text>
+
+  <text x="52" y="734" font-size="13" font-weight="700" fill="#1C1C1E">2. BTS7960B (40A Sürücü):</text>
+  <text x="52" y="755" font-size="12.5" fill="#3A3A3C">• B+ ve B- Klemens: 12V Pil (BMS)   |   M+ ve M- Klemens: Sağ Motor Kırmızı/Beyaz</text>
+  <text x="52" y="775" font-size="12.5" fill="#3A3A3C">• VCC, R_EN ve L_EN pinleri: 3.3V / 5V'a birleştirilir   |   GND: Ortak GND</text>
+  <text x="52" y="798" font-size="13" font-weight="700" fill="#007AFF">• RPWM ──► GPIO 27     |     LPWM ──► GPIO 14</text>
+
+  <text x="52" y="828" font-size="13" font-weight="700" fill="#AF52DE">Sağ JGB37-520 Enkoder Kabloları (6 Telli Soket):</text>
+  <text x="52" y="849" font-size="12.5" fill="#3A3A3C">• Enkoder VCC: 3.3V  |  Enkoder GND: GND  |  C1 (Faz A) ──► GPIO 18  |  C2 (Faz B) ──► GPIO 19</text>
+
+  <!-- Sağ Motor Kabloları -->
+  <line x1="550" y1="686" x2="660" y2="686" stroke="#007AFF" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <line x1="550" y1="728" x2="660" y2="728" stroke="#007AFF" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <line x1="550" y1="780" x2="660" y2="780" stroke="#AF52DE" stroke-width="3" marker-end="url(#arrowPurple)"/>
+  <line x1="550" y1="822" x2="660" y2="822" stroke="#AF52DE" stroke-width="3" marker-end="url(#arrowPurple)"/>
+
+  <!-- ==================== SAĞ SÜTUN 1: I2C DENGE VE LAZER MESAFE SENSÖRLERİ ==================== -->
+  <rect x="1250" y="130" width="520" height="350" rx="18" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <rect x="1250" y="130" width="520" height="40" rx="18" fill="#E8F8ED"/>
+  <text x="1272" y="156" font-size="16" font-weight="800" fill="#248A3D">4. DENGE (MPU6050) VE LAZER MESAFE (GY-530) — I2C HATTI</text>
+
+  <!-- 1. MPU6050 -->
+  <rect x="1272" y="185" width="225" height="125" rx="10" fill="#F2F2F7" stroke="#34C759" stroke-width="1.5"/>
+  <text x="1384" y="210" text-anchor="middle" font-size="14" font-weight="800" fill="#1C1C1E">1. MPU6050 (GY-521)</text>
+  <text x="1384" y="230" text-anchor="middle" font-size="12" font-weight="600" fill="#248A3D">Gövde Denge / Eğim Sensörü</text>
+  <text x="1384" y="254" text-anchor="middle" font-size="12" font-family="monospace" fill="#1C1C1E">VCC ──► ESP32 3V3</text>
+  <text x="1384" y="272" text-anchor="middle" font-size="12" font-family="monospace" fill="#1C1C1E">GND ──► ESP32 GND</text>
+  <text x="1384" y="290" text-anchor="middle" font-size="12" font-weight="700" font-family="monospace" fill="#248A3D">SDA ──► 21 | SCL ──► 22</text>
+
+  <!-- GY-530 VL53L0X -->
+  <rect x="1520" y="185" width="228" height="125" rx="10" fill="#F2F2F7" stroke="#34C759" stroke-width="1.5"/>
+  <text x="1634" y="210" text-anchor="middle" font-size="14" font-weight="800" fill="#1C1C1E">GY-530 (VL53L0X)</text>
+  <text x="1634" y="230" text-anchor="middle" font-size="12" font-weight="600" fill="#248A3D">Lazer İstasyon Mesafe Sensörü</text>
+  <text x="1634" y="254" text-anchor="middle" font-size="12" font-family="monospace" fill="#1C1C1E">VCC ──► ESP32 3V3</text>
+  <text x="1634" y="272" text-anchor="middle" font-size="12" font-family="monospace" fill="#1C1C1E">GND ──► ESP32 GND</text>
+  <text x="1634" y="290" text-anchor="middle" font-size="12" font-weight="700" font-family="monospace" fill="#248A3D">SDA ──► 21 | SCL ──► 22</text>
+
+  <rect x="1272" y="325" width="476" height="135" rx="10" fill="#F8FFF9" stroke="#B7E4C7" stroke-width="1.5"/>
+  <text x="1290" y="350" font-size="13.5" font-weight="700" fill="#248A3D">💡 I2C Paralel Bağlantı Notu:</text>
+  <text x="1290" y="372" font-size="12.5" fill="#3A3A3C">• 1. MPU6050 (adres 0x68) ve GY-530 (adres 0x29) farklı I2C adreslerine sahip olduğu</text>
+  <text x="1290" y="392" font-size="12.5" fill="#3A3A3C">  için ikisinin SDA kabloları birlikte GPIO 21'e, SCL kabloları birlikte GPIO 22'ye takılır.</text>
+  <text x="1290" y="416" font-size="12.5" fill="#3A3A3C">• MPU6050 kartını robot gövdesinin tam ağırlık merkezine, yere paralel sabitleyin.</text>
+  <text x="1290" y="438" font-size="12.5" fill="#3A3A3C">• GY-530 lazer sensörünü robotun şarj istasyonuna yanaşan yüzüne (öne) baktırın.</text>
+
+  <!-- I2C Kabloları -->
+  <line x1="1250" y1="306" x2="1140" y2="306" stroke="#FF2D55" stroke-width="3"/>
+  <line x1="1250" y1="350" x2="1140" y2="350" stroke="#48484A" stroke-width="3"/>
+  <line x1="1250" y1="411" x2="1140" y2="411" stroke="#34C759" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <line x1="1250" y1="453" x2="1140" y2="453" stroke="#34C759" stroke-width="3" marker-end="url(#arrowGreen)"/>
+
+  <!-- ==================== SAĞ SÜTUN 2: TSOP4038 IR ALICILAR VE DC171 ANAHTARLAR ==================== -->
+  <rect x="1250" y="500" width="520" height="390" rx="18" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.5" filter="url(#cardShadow)"/>
+  <rect x="1250" y="500" width="520" height="40" rx="18" fill="#FFF8F0"/>
+  <text x="1272" y="526" font-size="16" font-weight="800" fill="#FF9500">5. İSTASYON ALICILARI (3× TSOP4038) &amp; ANAHTARLAR (2× DC171)</text>
+
+  <text x="1272" y="562" font-size="13.5" font-weight="700" fill="#1C1C1E">3× TSOP4038 Kızılötesi (38kHz) İstasyon Yön Alıcıları:</text>
+  <text x="1272" y="584" font-size="12.5" fill="#3A3A3C">• Her 3 sensörün VS (VCC) bacağı ──► 3V3   |   GND bacağı ──► GND</text>
+  <text x="1272" y="606" font-size="13" font-weight="700" fill="#FF9500">• Sol TSOP4038 OUT ──► GPIO 16</text>
+  <text x="1272" y="626" font-size="13" font-weight="700" fill="#FF9500">• Orta TSOP4038 OUT ──► GPIO 17</text>
+  <text x="1272" y="646" font-size="13" font-weight="700" fill="#FF9500">• Sağ TSOP4038 OUT ──► GPIO 5</text>
+  <text x="1272" y="668" font-size="12" fill="#6C6C70">(Şarj istasyonundaki 4× LTE-4208 IR LED'ler 1kΩ/100Ω direnç ile 38kHz modüleli sürülür)</text>
+
+  <line x1="1272" y1="688" x2="1748" y2="688" stroke="#E5E5EA" stroke-width="1.5"/>
+
+  <text x="1272" y="716" font-size="13.5" font-weight="700" fill="#FF2D55">2× DC171 Micro Switch (Kutu ve Şarj Kenetlenme Doğrulama):</text>
+  <text x="1272" y="742" font-size="13" font-weight="700" fill="#1C1C1E">1) İlaç Sepeti Anahtarı (Parol Kutusu Kontrolü - "Kutu: Sabit / Düştü"):</text>
+  <text x="1272" y="762" font-size="12.5" fill="#3A3A3C">   • Switch COM ucu ──► GND   |   Switch NO ucu ──► ESP32 GPIO 4</text>
+  <text x="1272" y="792" font-size="13" font-weight="700" fill="#1C1C1E">2) Şarj İstasyonu Temas Anahtarı (Kenetlenme "dock" Doğrulaması):</text>
+  <text x="1272" y="812" font-size="12.5" fill="#3A3A3C">   • Switch COM ucu ──► GND   |   Switch NO ucu ──► ESP32 GPIO 15</text>
+  <text x="1272" y="842" font-size="12" fill="#6C6C70">(Kodda INPUT_PULLUP aktif olduğu için ekstra direnç gerekmez; basılınca LOW okunur)</text>
+
+  <!-- IR ve Switch Kabloları -->
+  <line x1="1250" y1="546" x2="1140" y2="546" stroke="#FF9500" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <line x1="1250" y1="588" x2="1140" y2="588" stroke="#FF9500" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <line x1="1250" y1="630" x2="1140" y2="630" stroke="#FF9500" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <line x1="1250" y1="736" x2="1140" y2="736" stroke="#FF2D55" stroke-width="3" marker-end="url(#arrowRed)"/>
+  <line x1="1250" y1="778" x2="1140" y2="778" stroke="#FF2D55" stroke-width="3" marker-end="url(#arrowRed)"/>
+
+  <!-- ==================== ALT BÖLÜM: GİYİLEBİLİR ELDİVEN DEVRESİ VE TELEFON BAĞLANTISI ==================== -->
+  <!-- Eldiven Kartı -->
+  <rect x="30" y="920" width="1120" height="270" rx="20" fill="#FFFFFF" stroke="#FF2D55" stroke-width="2" filter="url(#cardShadow)"/>
+  <rect x="30" y="920" width="1120" height="42" rx="20" fill="#FFEBEF"/>
+  <text x="56" y="947" font-size="17" font-weight="800" fill="#FF2D55">6. GİYİLEBİLİR ELDİVEN KUMANDASI (AYRI CİHAZ — KABLOSUZ ESP-NOW VERİCİ)</text>
+
+  <!-- Eldiven Pil + TP4056 -->
+  <rect x="56" y="980" width="290" height="185" rx="12" fill="#F2F2F7" stroke="#D1D1D6" stroke-width="1.5"/>
+  <text x="201" y="1010" text-anchor="middle" font-size="15" font-weight="800" fill="#1C1C1E">3.7V 1000mAh Li-Po Pil</text>
+  <text x="201" y="1032" text-anchor="middle" font-size="13.5" font-weight="700" fill="#FF2D55">+ TP4056 Type-C Şarj Kartı</text>
+  <text x="201" y="1062" text-anchor="middle" font-size="12.5" fill="#3A3A3C">• Pil + / -  ──► TP4056 B+ / B-</text>
+  <text x="201" y="1086" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FF2D55">• TP4056 OUT+ ──► NodeMCU VIN</text>
+  <text x="201" y="1108" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1C1C1E">• TP4056 OUT- ──► NodeMCU G</text>
+  <text x="201" y="1142" text-anchor="middle" font-size="11.5" fill="#6C6C70">(Araya 2. IC-134C On/Off Anahtar takılır)</text>
+
+  <line x1="346" y1="1072" x2="415" y2="1072" stroke="#FF2D55" stroke-width="3.5" marker-end="url(#arrowRed)"/>
+
+  <!-- 1. ESP32 (Eldiven) -->
+  <rect x="420" y="980" width="310" height="185" rx="14" fill="#1C1C1E" stroke="#3A3A3C" stroke-width="2"/>
+  <text x="575" y="1012" text-anchor="middle" font-size="17" font-weight="800" fill="#FFFFFF">1. NodeMCU ESP8266 (ELDİVEN)</text>
+  <text x="575" y="1034" text-anchor="middle" font-size="12.5" font-weight="600" fill="#FF2D55">eldiven_verici.ino Yüklenecek</text>
+  <text x="575" y="1066" text-anchor="middle" font-size="13" font-family="monospace" fill="#FFFFFF">VIN &lt;── TP4056 OUT+</text>
+  <text x="575" y="1088" text-anchor="middle" font-size="13" font-family="monospace" fill="#FFFFFF">3V ──► 2. MPU6050 VCC</text>
+  <text x="575" y="1110" text-anchor="middle" font-size="13" font-family="monospace" fill="#34C759">D2/GPIO4 (SDA) &lt;──► MPU SDA</text>
+  <text x="575" y="1132" text-anchor="middle" font-size="13" font-family="monospace" fill="#34C759">D1/GPIO5 (SCL) &lt;──► MPU SCL</text>
+
+  <line x1="730" y1="1072" x2="800" y2="1072" stroke="#34C759" stroke-width="3.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- 2. MPU6050 (Eldiven) -->
+  <rect x="805" y="980" width="315" height="185" rx="12" fill="#E8F8ED" stroke="#34C759" stroke-width="1.5"/>
+  <text x="962" y="1012" text-anchor="middle" font-size="15" font-weight="800" fill="#1C1C1E">2. MPU6050 (GY-521)</text>
+  <text x="962" y="1034" text-anchor="middle" font-size="13" font-weight="700" fill="#248A3D">Eldiven El Eğim Sensörü (4 Kablo)</text>
+  <text x="962" y="1064" text-anchor="middle" font-size="13" font-family="monospace" fill="#1C1C1E">VCC ──► NodeMCU 3V</text>
+  <text x="962" y="1086" text-anchor="middle" font-size="13" font-family="monospace" fill="#1C1C1E">GND ──► NodeMCU G</text>
+  <text x="962" y="1108" text-anchor="middle" font-size="13" font-weight="700" font-family="monospace" fill="#248A3D">SDA ──► NodeMCU D2</text>
+  <text x="962" y="1130" text-anchor="middle" font-size="13" font-weight="700" font-family="monospace" fill="#248A3D">SCL ──► NodeMCU D1</text>
+
+  <!-- Telefon HDRG100 Mobil Uygulama Kartı -->
+  <rect x="1250" y="920" width="520" height="270" rx="20" fill="#FFFFFF" stroke="#007AFF" stroke-width="2" filter="url(#cardShadow)"/>
+  <rect x="1250" y="920" width="520" height="42" rx="20" fill="#E5F0FA"/>
+  <text x="1274" y="947" font-size="17" font-weight="800" fill="#007AFF">7. TELEFON — HDRG100 MOBİL UYGULAMA HABERLEŞMESİ</text>
+
+  <text x="1274" y="988" font-size="14" font-weight="700" fill="#1C1C1E">Kablosuz Bağlantı Akışı (Sıfır Kablo):</text>
+  <text x="1274" y="1016" font-size="13" fill="#3A3A3C">1. Eldiven NodeMCU ──(ESP-NOW 20 Hz)──► Robot ESP32</text>
+  <text x="1274" y="1038" font-size="12.5" fill="#6C6C70">   Komutlar: "FWD" (İleri), "BWD" (Geri), "LEFT", "RIGHT", "STOP"</text>
+  <text x="1274" y="1072" font-size="13" fill="#3A3A3C">2. Robot ESP32 ◄──(Wi-Fi UDP 4210, 2 Hz)──► Telefon (HDRG100)</text>
+  <text x="1274" y="1094" font-size="12.5" fill="#6C6C70">   Wi-Fi Ağı: "HDRG100-Robot" (Şifre: 12345678)</text>
+  <rect x="1274" y="1108" width="472" height="66" rx="8" fill="#F2F2F7"/>
+  <text x="1510" y="1127" text-anchor="middle" font-size="11" font-weight="700" font-family="monospace" fill="#FF2D55">{"seq":1,"pitch":1.4,"bat":85,"chg":1,"dock":1,"box":1,</text>
+  <text x="1510" y="1144" text-anchor="middle" font-size="11" font-weight="700" font-family="monospace" fill="#FF2D55">"dist":0.45,"yaw":0.0,"rst":0,"cmd":"FWD"}</text>
+  <text x="1510" y="1164" text-anchor="middle" font-size="11.5" fill="#6C6C70">Telefon 1 sn'de bir "HELLO" yollar; robot telemetriyi doğrudan telefona gönderir</text>
+</svg>
+
