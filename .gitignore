@@ -47,23 +47,10 @@ app.*.map.json
 # Widget Preview related
 .widget_preview/
 
-# Kullanılmayan platform klasörleri (uygulama Android ve iOS hedefler)
-/web/
-/linux/
-/windows/
-/macos/
-
 # Yerel ayarlar
 .vscode/
 android/local.properties
-
-# Depoya alınmayan yerel belgeler (ders şartnamesi, üçüncü taraf datasheet'ler, eski taslaklar)
-*.pdf
-!docs/**/*.pdf
-/esp.jpeg
-/GRno_CDTP_Management_Plan_Form_EN.docx
-/CDTP_Grup100_Proje_Yonetim_Plani.docx
-/TEKNIK_RAPOR.md
-/HDRG100_Sifirdan_Uca_Egitim_ve_Proje_Rehberi.md
-/Sifirdan_Uzmanliga_Dart_Flutter_ve_HDRG100_Kodlama_Kitabi.md
 ~$*.docx
+
+# Depoya alınmayan yerel ekler (ders belgeleri, datasheet'ler, eski taslaklar)
+/ekler/
