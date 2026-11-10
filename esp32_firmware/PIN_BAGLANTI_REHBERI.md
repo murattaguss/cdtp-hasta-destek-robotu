@@ -106,7 +106,7 @@ Seri monitörü **115200** baud açın. `d` tuşu tanı çıktısını açar/kap
    Salınım varsa `teta_max`'ı küçültün, robot kayıyorsa `konum_max`'ı küçültün.
 5. **Şarj istasyonu:** Şartname gereği robot istasyona oturup stabil olunca motorlar durur
    (`DOCK_SETTLE_MS`). Bu yüzden istasyonda robotun **yaslanacağı bir dayanak** olmalı ve yaslanınca
-   eğim **±5°'yi** geçmemeli (uygulama şarj doğrulamasında |eğim| ≤ 5° arar).
+   eğim **±10°'yi** geçmemeli (uygulama şarj doğrulamasında |eğim| ≤ 10° arar).
 6. **Yaklaşma hızı (GY-530):** Tanı çıktısındaki `tof` değeri istasyona yaklaştıkça azalmalı.
    Robot 250 mm'den itibaren yavaşlar, 60 mm'de en düşük hıza iner (`TOF_SLOWDOWN_*`).
    Sensör takılı değilse açılışta "vl53l0x bulunamadi" yazar ve yaklaşma sabit hızla yapılır.

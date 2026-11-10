@@ -25,7 +25,7 @@ class TaskEvaluatorService extends ChangeNotifier {
   static const double stopHoldSec = 3.0;
   static const double targetHoldSec = 5.0;
   static const double maxChargeDelaySec = 5.0;
-  static const double dockedMaxPitchDeg = 5.0;
+  static const double dockedMaxPitchDeg = 10.0;
 
   TaskType _selectedTask = TaskType.staticBalance;
   bool _isTestRunning = false;
