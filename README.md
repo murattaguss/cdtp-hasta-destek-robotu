@@ -22,7 +22,7 @@ A two-wheeled self-balancing robot that carries a medicine box around the house,
 | `esp32_firmware/lqr_tasarim/` | Python script that computes the LQR gain matrix from the robot model |
 | `esp32_firmware/PIN_BAGLANTI_REHBERI.md` | Wiring guide, pinout and first power-up / tuning procedure (Turkish) |
 | `docs/proje-yonetim-plani/` | Project management plan (Turkish and English) |
-| `scripts/` | Helpers for installing the app on Android (APK over QR) and iPhone |
+| `scripts/` | Helpers for installing the app on Android (APK over QR) and iPhone, and a simulated robot for testing without hardware |
 
 ### How it fits together
 
@@ -52,12 +52,16 @@ flutter build apk --release          # Android
 
 `scripts/QR_Ile_Telefona_Yukle.command` builds the APK and serves it on the local network with a QR code so teammates can install it from their phones.
 
+To try the app without the robot, start the iOS Simulator build and run `python3 scripts/sahte_robot.py` on the same Mac. It sends the same UDP telemetry as the robot to port 4210, and keyboard keys move it (`w/s/a/d/x`), drop the box (`k`), dock it (`c`) or tip it over (`f`). The app always addresses its commands to 192.168.4.1, so `RESET` does not reach the simulated robot; the app then zeroes distance and rotation on its own side.
+
 **Firmware** (Arduino IDE or `arduino-cli`)
 
 | Sketch | Board | Core |
 |---|---|---|
 | `robot_ana_beyin` | ESP32 Dev Module | esp32 3.x |
 | `eldiven_verici` | NodeMCU 1.0 (ESP-12E) | esp8266 3.x |
+
+The robot sketch needs the Pololu `VL53L0X` library (Library Manager, or `arduino-cli lib install VL53L0X`).
 
 ```bash
 arduino-cli compile --fqbn esp32:esp32:esp32 esp32_firmware/robot_ana_beyin
@@ -75,7 +79,7 @@ Update the measured mass and dimensions at the top of the script, run it, and pa
 
 ### Status
 
-Software for all modules is written and builds. Mechanical assembly and tuning on the real chassis start in week 9; full integration and the four-run rehearsals are planned for weeks 11–14.
+Software for all modules is written and builds. Mechanical assembly and tuning on the real chassis start in week 8; full integration and the four-run rehearsals are planned for weeks 11–14.
 
 ### Team
 
@@ -110,7 +114,7 @@ Evde bakım gören hastaların ilaç kutusunu ev içinde taşıyan, kendi denges
 | `esp32_firmware/lqr_tasarim/` | Robot modelinden LQR kazanç matrisini hesaplayan Python betiği |
 | `esp32_firmware/PIN_BAGLANTI_REHBERI.md` | Pin bağlantıları, kablolama şeması ve ilk çalıştırma/ayar adımları |
 | `docs/proje-yonetim-plani/` | Proje yönetim planı (Türkçe ve İngilizce) |
-| `scripts/` | Uygulamayı Android'e (QR ile APK) ve iPhone'a kurma betikleri |
+| `scripts/` | Uygulamayı Android'e (QR ile APK) ve iPhone'a kurma betikleri, robotsuz deneme için sahte robot |
 
 ### Sistem kısaca
 
@@ -131,12 +135,13 @@ flutter build apk --release
 
 - Android: `scripts/QR_Ile_Telefona_Yukle.command` APK'yı derleyip yerel ağda QR koduyla paylaşıyor.
 - iPhone: Telefonu Mac'e bağlayıp `scripts/iPhone_Yukle.command` çalıştırmak yeterli.
+- Robot olmadan denemek için uygulamayı iOS Simulator'da açıp aynı Mac'te `python3 scripts/sahte_robot.py` çalıştırın. Betik gerçek robotla aynı UDP telemetrisini 4210 portuna gönderiyor; klavyeden `w/s/a/d/x` ile hareket, `k` ile kutu düşürme, `c` ile istasyona kenetlenme, `f` ile devrilme deneniyor. Uygulama komutlarını her zaman 192.168.4.1'e gönderdiği için `RESET` sahte robota ulaşmaz; mesafe ve dönüş bu durumda uygulama tarafında sıfırlanır.
 
-Firmware Arduino IDE ile yüklenebilir. Robot için kart **ESP32 Dev Module**, eldiven için **NodeMCU 1.0 (ESP-12E)** seçilmeli. Robotu ilk kez çalıştırırken yön işaretlerinin kontrolü, denge noktası ayarı ve LQR kazançlarının hesaplanması [pin bağlantı rehberinde](esp32_firmware/PIN_BAGLANTI_REHBERI.md) adım adım anlatılıyor.
+Firmware Arduino IDE ile yüklenebilir. Robot için kart **ESP32 Dev Module**, eldiven için **NodeMCU 1.0 (ESP-12E)** seçilmeli. Robot kodu için Kütüphane Yöneticisi'nden Pololu'nun **VL53L0X** kütüphanesi kurulmalı. Robotu ilk kez çalıştırırken yön işaretlerinin kontrolü, denge noktası ayarı ve LQR kazançlarının hesaplanması [pin bağlantı rehberinde](esp32_firmware/PIN_BAGLANTI_REHBERI.md) adım adım anlatılıyor.
 
 ### Durum
 
-Tüm modüllerin yazılımı hazır ve derleniyor. Robotun mekanik montajı ve gerçek şasi üzerindeki ayarlar 9. haftada başlıyor; uçtan uca entegrasyon ve 4 turluk provalar 11–14. haftalarda yapılacak.
+Tüm modüllerin yazılımı hazır ve derleniyor. Robotun mekanik montajı ve gerçek şasi üzerindeki ayarlar 8. haftada başlıyor; uçtan uca entegrasyon ve 4 turluk provalar 11–14. haftalarda yapılacak.
 
 ### Ekip
 
