@@ -88,7 +88,8 @@ EHM'ci arkadaşın gönderdiği **`esp.jpeg`** ve **`esp8266-V13.pdf`** dosyalar
 
 ---
 
-## 4. Robotu İlk Kez Çalıştırma ve Ayar (9. hafta)
+## 4. Robotu İlk Kez Çalıştırma ve Ayar (8.–9. hafta)
+Derlemeden önce Arduino IDE > Kütüphane Yöneticisi'nden **`VL53L0X` (Pololu)** kütüphanesini kurun.
 Seri monitörü **115200** baud açın. `d` tuşu tanı çıktısını açar/kapatır.
 
 1. **IMU kalibrasyonu:** Açılışta robotu ~1 sn hareketsiz tutun (gyro sıfır kayması ölçülür).
@@ -106,5 +107,8 @@ Seri monitörü **115200** baud açın. `d` tuşu tanı çıktısını açar/kap
 5. **Şarj istasyonu:** Şartname gereği robot istasyona oturup stabil olunca motorlar durur
    (`DOCK_SETTLE_MS`). Bu yüzden istasyonda robotun **yaslanacağı bir dayanak** olmalı ve yaslanınca
    eğim **±5°'yi** geçmemeli (uygulama şarj doğrulamasında |eğim| ≤ 5° arar).
-6. **Şarj algılama:** Robot istasyondayken tanı çıktısındaki `sarjGiris` gerilimi 9 V'un üstünde
+6. **Yaklaşma hızı (GY-530):** Tanı çıktısındaki `tof` değeri istasyona yaklaştıkça azalmalı.
+   Robot 250 mm'den itibaren yavaşlar, 60 mm'de en düşük hıza iner (`TOF_SLOWDOWN_*`).
+   Sensör takılı değilse açılışta "vl53l0x bulunamadi" yazar ve yaklaşma sabit hızla yapılır.
+7. **Şarj algılama:** Robot istasyondayken tanı çıktısındaki `sarjGiris` gerilimi 9 V'un üstünde
    olmalı (`CHARGE_DETECT_VOLT`).

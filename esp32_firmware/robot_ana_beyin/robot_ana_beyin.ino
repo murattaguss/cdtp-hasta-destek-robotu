@@ -2,6 +2,8 @@
 //
 // pin bağlantıları özeti:
 // - mpu6050: sda -> gpio 21, scl -> gpio 22, vcc -> 3.3V, gnd -> GND
+// - vl53l0x tof mesafe sensörü (gy-530): mpu6050 ile aynı i2c hattı (sda 21, scl 22), vin -> 3.3V,
+//   adres 0x29, gövdenin önünde ir alıcılarla aynı yöne bakar
 // - sol bts7960b sürücü: rpwm -> gpio 25, lpwm -> gpio 26 (r_en ve l_en -> 3.3V/5V)
 // - sağ bts7960b sürücü: rpwm -> gpio 27, lpwm -> gpio 14 (r_en ve l_en -> 3.3V/5V)
 // - sol motor enkoder (jgb37-520): faz A -> gpio 32, faz B -> gpio 33
@@ -18,6 +20,8 @@
 //
 // seri monitör (115200) komutları: 'd' tanı çıktısını açar/kapatır,
 //   'l' / 'r' robot HAVADAYKEN sol / sağ motoru 0,5 sn ileri yönde döndürür (yön testi).
+//
+// gerekli kütüphane: "VL53L0X" (Pololu) - Arduino IDE > Kütüphane Yöneticisi
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -25,6 +29,7 @@
 #include <WiFiUdp.h>
 #include <esp_now.h>
 #include <math.h>
+#include <VL53L0X.h>
 
 // ======================= pinler =======================
 const int PIN_I2C_SDA       = 21;
@@ -93,6 +98,11 @@ const float DOCK_PRESS_M        = 0.01f;  // pedlere bastırmak için ileri konu
 const unsigned long DOCK_SETTLE_MS  = 1500;  // temas sonrası stabil bekleme, sonra motorlar durur
 const unsigned long IR_LOST_TIMEOUT_MS = 3000;
 
+// yaklaşma hızı istasyona kalan mesafeye (vl53l0x) göre DOCK_SPEED'den DOCK_SLOW'a iner
+const float TOF_SLOWDOWN_START_MM = 250.0f;
+const float TOF_SLOWDOWN_END_MM   = 60.0f;
+const unsigned long TOF_STALE_MS  = 300;   // bundan eski ölçüm kullanılmaz
+
 // dönüş (yaw hızı) kontrolü - volt cinsinden fark gerilimi
 const float YAW_FF_V_PER_DPS = 0.020f;
 const float YAW_KP_V_PER_DPS = 0.030f;
@@ -158,6 +168,11 @@ unsigned long dockContactMs = 0;
 unsigned long lastIrSeenMs = 0;
 unsigned long uprightSinceMs = 0;
 int lastIrSide = 0;  // -1 sol, 0 orta, 1 sağ
+
+VL53L0X tof;
+bool tofOk = false;
+int tofMm = -1;              // -1: ölçüm yok veya menzil dışı
+unsigned long tofReadMs = 0;
 uint32_t telemetrySeq = 0;
 bool diagnostics = false;
 unsigned long lastDiagMs = 0;
@@ -342,7 +357,17 @@ void applyGloveCommand() {
   else if (!strcmp(gloveCmd, "LEFT"))  yawRateRefDps = -TURN_RATE_DPS;
 }
 
-// 3 ir alıcı ile istasyona hizalanma
+// istasyona kalan mesafeye göre yaklaşma hızı; sensör yoksa veya ölçüm eskiyse sabit hız
+float dockApproachSpeed() {
+  if (!tofOk || tofMm < 0 || millis() - tofReadMs > TOF_STALE_MS) return DOCK_SPEED_MPS;
+  float d = (float)tofMm;
+  if (d >= TOF_SLOWDOWN_START_MM) return DOCK_SPEED_MPS;
+  if (d <= TOF_SLOWDOWN_END_MM) return DOCK_SLOW_MPS;
+  float k = (d - TOF_SLOWDOWN_END_MM) / (TOF_SLOWDOWN_START_MM - TOF_SLOWDOWN_END_MM);
+  return DOCK_SLOW_MPS + k * (DOCK_SPEED_MPS - DOCK_SLOW_MPS);
+}
+
+// 3 ir alıcı ile istasyona hizalanma (yön), vl53l0x ile yavaşlama (hız)
 void applyDockGuidance() {
   bool irL = digitalRead(PIN_IR_LEFT) == LOW;
   bool irC = digitalRead(PIN_IR_CENTER) == LOW;
@@ -352,7 +377,7 @@ void applyDockGuidance() {
   if (irC) {
     lastIrSeenMs = now;
     lastIrSide = 0;
-    velRefMps = DOCK_SPEED_MPS;
+    velRefMps = dockApproachSpeed();
     yawRateRefDps = irL ? -DOCK_TURN_DPS * 0.3f : (irR ? DOCK_TURN_DPS * 0.3f : 0.0f);
   } else if (irL) {
     lastIrSeenMs = now;
@@ -567,11 +592,11 @@ void handleSerial() {
   if (diagnostics && millis() - lastDiagMs >= 200) {
     lastDiagMs = millis();
     Serial.printf("mod:%s pitch:%.2f rate:%.1f x:%.3f v:%.2f yaw:%.1f | ir L%d C%d R%d | kutu:%d dock:%d | "
-                  "pil:%.2fV sarjGiris:%.2fV | eldiven:%s\n",
+                  "tof:%dmm | pil:%.2fV sarjGiris:%.2fV | eldiven:%s\n",
                   modeName(), pitchDeg, pitchRateDps, posM, velMps, yawDeg,
                   digitalRead(PIN_IR_LEFT) == LOW, digitalRead(PIN_IR_CENTER) == LOW,
                   digitalRead(PIN_IR_RIGHT) == LOW, digitalRead(PIN_SWITCH_BOX) == LOW,
-                  digitalRead(PIN_SWITCH_DOCK) == LOW, batteryVolt, chargeInVolt, gloveCmd);
+                  digitalRead(PIN_SWITCH_DOCK) == LOW, tofMm, batteryVolt, chargeInVolt, gloveCmd);
   }
 }
 
@@ -602,6 +627,16 @@ void setup() {
   initMPU6050();
   Serial.println("imu kalibrasyonu: robotu 1 sn hareketsiz tutun...");
   calibrateImu();
+
+  // vl53l0x mpu6050 ile aynı i2c hattında; bulunamazsa yanaşma yalnız ir ile yapılır
+  tof.setTimeout(20);
+  if (tof.init()) {
+    tof.setMeasurementTimingBudget(33000);
+    tof.startContinuous();
+    tofOk = true;
+  } else {
+    Serial.println("vl53l0x bulunamadi, yanasma hizi sabit kalacak");
+  }
 
   batteryVolt = readDividerVolt(PIN_BATTERY_ADC);
   chargeInVolt = readDividerVolt(PIN_CHARGE_IN_ADC);
@@ -647,6 +682,13 @@ void loop() {
     lastSlowReadMs = nowMs;
     batteryVolt  += 0.2f * (readDividerVolt(PIN_BATTERY_ADC) - batteryVolt);
     chargeInVolt += 0.5f * (readDividerVolt(PIN_CHARGE_IN_ADC) - chargeInVolt);
+
+    // yeni mesafe ölçümü hazırsa oku (beklemeden; denge döngüsünü geciktirmez)
+    if (tofOk && (tof.readReg(VL53L0X::RESULT_INTERRUPT_STATUS) & 0x07) != 0) {
+      uint16_t mm = tof.readRangeContinuousMillimeters();
+      tofMm = (tof.timeoutOccurred() || mm >= 8000) ? -1 : (int)mm;
+      tofReadMs = nowMs;
+    }
   }
 
   // 2 Hz telemetri (şartname minimumu 1 Hz)
